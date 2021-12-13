@@ -6,16 +6,16 @@ import math
 from dataBase import data_base
 from PyQt5.QtWidgets import QPushButton
 
-pg.setConfigOption('background', (33, 33, 33))
-pg.setConfigOption('foreground', (197, 198, 199))
+pg.setConfigOption('background', (34,39,46))
+pg.setConfigOption('foreground', (79,89,99))
 # Interface variables
 app = QtGui.QApplication([])
 view = pg.GraphicsView()
 Layout = pg.GraphicsLayout()
 view.setCentralItem(Layout)
 view.show()
-view.setWindowTitle('Flight monitoring')
-view.resize(1200, 700)
+view.setWindowTitle('Ground Station')
+view.resize(960, 540)
 
 # declare object for serial Communication
 ser = Communication()
@@ -28,23 +28,18 @@ font.setPixelSize(90)
 
 # Title at top
 text = """
-Flight monitoring interface for cansats and OBC's <br>
-developed at the Universidad Distrital FJC.
+Ground Station Developed by SligoSat (https://github.com/sligosat)
 """
-Layout.addLabel(text, col=1, colspan=21)
+Layout.addLabel(text, col=1, colspan=25)
 Layout.nextRow()
-
-# Put vertical label on left side
-Layout.addLabel('LIDER - ATL research hotbed',
-                angle=-90, rowspan=3)
 
 Layout.nextRow()
 # Save data buttons
 
 # buttons style
-style = "background-color:rgb(29, 185, 84);color:rgb(0,0,0);font-size:14px;"
+style = "background-color:rgb(77,138,210);color:rgb(0,0,0);font-size:14px;"
 
-lb = Layout.addLayout(colspan=21)
+lb = Layout.addLayout(colspan=25)
 proxy = QtGui.QGraphicsProxyWidget()
 save_button = QtGui.QPushButton('Start storage')
 save_button.setStyleSheet(style)
