@@ -218,13 +218,9 @@ def update_temp(value_chain):
 l2 = Layout.addLayout(border=(83, 83, 83))
 
 
-# Time graph
-time_graph = l2.addPlot(title="Time (min)")
-time_graph.hideAxis('bottom')
-time_graph.hideAxis('left')
+# Time Text
 time_text = pg.TextItem("test", anchor=(0.5, 0.5), color="w")
 time_text.setFont(font)
-time_graph.addItem(time_text)
 
 
 def update_time(value_chain):
@@ -235,14 +231,6 @@ def update_time(value_chain):
 
 
 l2.nextRow()
-
-# Battery graph
-battery_graph = l2.addPlot(title="battery satus")
-battery_graph.hideAxis('bottom')
-battery_graph.hideAxis('left')
-battery_text = pg.TextItem("test", anchor=(0.5, 0.5), color="w")
-battery_text.setFont(font)
-battery_graph.addItem(battery_text)
 
 
 def update_battery(value_chain):
