@@ -30,7 +30,7 @@ font.setPixelSize(90)
 text = """
 Ground Station Developed by SligoSat (https://github.com/sligosat)
 """
-Layout.addLabel(text, col=1, colspan=25)
+Layout.addLabel(text, col=1, colspan=19)
 Layout.nextRow()
 
 Layout.nextRow()
@@ -60,7 +60,7 @@ lb.addItem(proxy2)
 Layout.nextRow()
 
 # Altitude graph
-l1 = Layout.addLayout(colspan=20, rowspan=2)
+l1 = Layout.addLayout(colspan=25, rowspan=2)
 l11 = l1.addLayout(rowspan=1, border=(83, 83, 83))
 p1 = l11.addPlot(title="Altitude (m)")
 altitude_plot = p1.plot(pen=(29, 185, 84))
@@ -77,6 +77,7 @@ def update_altitude(value_chain):
     altitude_plot.setPos(ptr1, 0)
 
 
+
 # Speed graph
 p2 = l11.addPlot(title="Speed (m/s)")
 vel_plot = p2.plot(pen=(29, 185, 84))
@@ -90,7 +91,7 @@ vel = 0
 
 def update_vel(value_chain):
     global vel_plot, vel_data, ptr6, vx, vy, vz, vel
-    # 500 es dt
+    # 500 
     i = 0
     if(i == 0):
         vzo = float(value_chain[10])
@@ -109,7 +110,7 @@ def update_vel(value_chain):
 
 
 l1.nextRow()
-l12 = l1.addLayout(rowspan=1, border=(83, 83, 83))
+l12 = l1.addLayout(rowspan=1, border=(90, 90, 90))
 
 # Acceleration graph
 acc_graph = l12.addPlot(title="Accelerations (m/s²)")
@@ -214,46 +215,6 @@ def update_temp(value_chain):
     temp_plot.setPos(ptr5, 0)
 
 
-# Time, battery and free fall graphs
-l2 = Layout.addLayout(border=(83, 83, 83))
-
-
-# Time Text
-time_text = pg.TextItem("test", anchor=(0.5, 0.5), color="w")
-time_text.setFont(font)
-
-
-def update_time(value_chain):
-    global time_text
-    time_text.setText('')
-    tiempo = round(int(value_chain[0]) / 60000, 2)
-    time_text.setText(str(tiempo))
-
-
-l2.nextRow()
-
-
-def update_battery(value_chain):
-    pass
-
-
-l2.nextRow()
-
-freeFall_graph = l2.addPlot(title="Free fall")
-freeFall_graph.hideAxis('bottom')
-freeFall_graph.hideAxis('left')
-freeFall_text = pg.TextItem("test", anchor=(0.5, 0.5), color="w")
-freeFall_text.setFont(font)
-freeFall_graph.addItem(freeFall_text)
-
-
-def update_freeFall(value_chain):
-    global freeFall_text
-    freeFall_text.setText('')
-    if(value_chain[2] == '0'):
-        freeFall_text.setText('No')
-    else:
-        freeFall_text.setText('Yes')
 
 
 def update():
@@ -262,18 +223,14 @@ def update():
         value_chain = ser.getData()
         update_altitude(value_chain)
         update_vel(value_chain)
-        update_time(value_chain)
         update_acc(value_chain)
         update_gyro(value_chain)
         update_pressure(value_chain)
         update_temp(value_chain)
-        update_freeFall(value_chain)
         data_base.guardar(value_chain)
     except IndexError:
         print('starting, please wait a moment')
 
-    # desconozco si es necesario esto
-    # QtGui.QApplication.processEvents()
 
 
 if(ser.isOpen()) or (ser.dummyMode()):
